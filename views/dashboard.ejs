@@ -1,0 +1,654 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="theme-color" content="#09070f">
+    <title>RavixMC · Applications</title>
+<link rel="icon" href="https://upload.mthaiand123.workers.dev/EXij8z7Zzm.webpا">
+    <script src="https://cdn.tailwindcss.com" type="d68efe93c865707cef973e8e-text/javascript"></script>
+
+    <style>
+        :root {
+            --purple: #a020f0;
+            --purple-light: #b52cff;
+            --background: #09070f;
+            --card: #201f2d;
+            --muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(147, 51, 234, .10), transparent 48%),
+                #09070f;
+            overflow-x: hidden;
+        }
+
+        .ambient {
+            position: fixed;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(147, 51, 234, .13);
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            animation: ambientMove 12s ease-in-out infinite alternate;
+        }
+
+        .ambient-one { top: -180px; right: 10%; }
+        .ambient-two {
+            bottom: -220px;
+            left: 5%;
+            animation-delay: 3s;
+        }
+
+        @keyframes ambientMove {
+            from { transform: translate(0, 0); }
+            to { transform: translate(35px, 45px); }
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 1;
+            animation: pageEnter .7s cubic-bezier(.16, 1, .3, 1) both;
+        }
+
+        @keyframes pageEnter {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            animation: revealUp .65s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
+
+        .delay-1 { animation-delay: .08s; }
+        .delay-2 { animation-delay: .16s; }
+        .delay-3 { animation-delay: .24s; }
+        .delay-4 { animation-delay: .32s; }
+        .delay-5 { animation-delay: .40s; }
+        .delay-6 { animation-delay: .48s; }
+        .delay-7 { animation-delay: .56s; }
+
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .application-card {
+            position: relative;
+            overflow: hidden;
+            background: #201f2d;
+            border: 1px solid rgba(148, 163, 184, .13);
+            border-radius: 17px;
+            transition:
+                transform .3s cubic-bezier(.16, 1, .3, 1),
+                border-color .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .application-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 12%;
+            right: 12%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, .8), transparent);
+            opacity: 0;
+            transition: opacity .3s ease;
+        }
+
+        .application-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(168, 85, 247, .45);
+            box-shadow: 0 14px 35px rgba(147, 51, 234, .12);
+        }
+
+        .application-card:hover::before { opacity: 1; }
+
+        .application-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            color: white;
+            background: linear-gradient(145deg, #a020f0, #7e22ce);
+            box-shadow: 0 8px 22px rgba(147, 51, 234, .25);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .application-card:hover .application-icon {
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 10px 28px rgba(147, 51, 234, .4);
+        }
+
+        .submit-button {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(100deg, #a020f0, #9225e8);
+            box-shadow: 0 7px 20px rgba(147, 51, 234, .20);
+            transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+        }
+
+        .submit-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(110deg, transparent, rgba(255,255,255,.22), transparent);
+            transform: skewX(-20deg);
+            transition: left .65s ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.12);
+            box-shadow: 0 11px 28px rgba(147, 51, 234, .35);
+        }
+
+        .submit-button:hover::before { left: 150%; }
+        .submit-button:active { transform: translateY(-1px) scale(.985); }
+
+        .submit-button:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .submission-row {
+            background: #201f2d;
+            border: 1px solid rgba(148, 163, 184, .14);
+            border-radius: 13px;
+            transition: border-color .25s ease, transform .25s ease, background .25s ease;
+        }
+
+        .submission-row:hover {
+            border-color: rgba(168, 85, 247, .35);
+            background: #242333;
+            transform: translateX(-3px);
+        }
+
+        .submission-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c026ff;
+            background: rgba(168, 85, 247, .12);
+            border: 1px solid rgba(168, 85, 247, .25);
+            border-radius: 10px;
+        }
+
+        .status-badge {
+            padding: 7px 13px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .3px;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            color: #fbbf24;
+            background: rgba(245, 158, 11, .10);
+            border: 1px solid rgba(245, 158, 11, .22);
+        }
+
+        .status-accepted {
+            color: #22c55e;
+            background: rgba(34, 197, 94, .10);
+            border: 1px solid rgba(34, 197, 94, .22);
+        }
+
+        .status-rejected {
+            color: #ef4444;
+            background: rgba(239, 68, 68, .10);
+            border: 1px solid rgba(239, 68, 68, .22);
+        }
+
+        .view-button {
+            color: #c026ff;
+            background: rgba(168, 85, 247, .10);
+            border: 1px solid rgba(168, 85, 247, .25);
+            transition: .25s ease;
+        }
+
+        .view-button:hover {
+            background: rgba(168, 85, 247, .20);
+            border-color: rgba(168, 85, 247, .5);
+            transform: translateY(-2px);
+        }
+
+        .section-heading { position: relative; width: fit-content; }
+
+        .section-heading::after {
+            content: "";
+            display: block;
+            width: 35px;
+            height: 3px;
+            margin-top: 9px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #a020f0, transparent);
+        }
+
+        .cooldown-box {
+            background: rgba(245, 158, 11, .07);
+            border: 1px solid rgba(245, 158, 11, .22);
+            border-radius: 12px;
+            padding: 13px;
+        }
+
+        .cooldown-time {
+            color: #fbbf24;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+        }
+
+        @media (max-width: 768px) {
+            .submission-row { flex-wrap: wrap; }
+            .submission-actions {
+                width: 100%;
+                justify-content: space-between;
+                padding-top: 10px;
+                border-top: 1px solid rgba(148, 163, 184, .10);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-white font-sans min-h-screen flex flex-col md:flex-row">
+
+<%
+    const appOpen = typeof isAppOpen !== 'undefined' ? isAppOpen : true;
+    const mediaOpen = typeof isMediaAppOpen !== 'undefined' ? isMediaAppOpen : true;
+    const showAdminDashboard = typeof canAccessAdmin !== 'undefined' && canAccessAdmin === true;
+
+    const staffCooldownData = typeof staffCooldown !== 'undefined' && staffCooldown
+        ? staffCooldown
+        : { active: false, until: null, remainingMs: 0 };
+
+    const mediaCooldownData = typeof mediaCooldown !== 'undefined' && mediaCooldown
+        ? mediaCooldown
+        : { active: false, until: null, remainingMs: 0 };
+
+    const submissions = [];
+
+    if (typeof application !== 'undefined' && application) {
+        submissions.push({
+            type: 'Staff Application',
+            date: application.date || application.application_date || application.created_at,
+            status: application.status,
+            reviewedAt: application.reviewedAt || application.reviewed_at,
+            id: 'staff'
+        });
+    }
+
+    if (typeof mediaApplication !== 'undefined' && mediaApplication) {
+        submissions.push({
+            type: 'Media Application',
+            date: mediaApplication.date || mediaApplication.application_date || mediaApplication.created_at,
+            status: mediaApplication.status,
+            reviewedAt: mediaApplication.reviewedAt || mediaApplication.reviewed_at,
+            id: 'media'
+        });
+    }
+
+    const formatSubmissionDate = (value) => {
+        if (!value) return 'Date unavailable';
+
+        const parsed = new Date(value);
+
+        if (Number.isNaN(parsed.getTime())) return String(value);
+
+        return parsed.toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit'
+        });
+    };
+
+    const formatRemaining = (remainingMs) => {
+        const totalSeconds = Math.max(0, Math.ceil(Number(remainingMs || 0) / 1000));
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+        return { days, hours, minutes };
+    };
+
+    const statusLabel = (status) => {
+        if (status === 'accepted') return 'ACCEPTED';
+        if (status === 'rejected') return 'DENIED';
+        return 'PENDING';
+    };
+
+    const statusClass = (status) => {
+        if (status === 'accepted') return 'status-accepted';
+        if (status === 'rejected') return 'status-rejected';
+        return 'status-pending';
+    };
+%>
+
+<div class="ambient ambient-one"></div>
+<div class="ambient ambient-two"></div>
+
+<!-- Sidebar -->
+<aside class="w-full md:w-72 bg-[#130f26] border-b md:border-b-0 md:border-r border-purple-500/10 p-6 flex flex-col justify-between shrink-0 relative z-10">
+    <div>
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-purple-500/20">
+                <img
+                    src="https://upload.mthaiand123.workers.dev/EXij8z7Zzm.webp"
+                    alt="RavixMC Logo"
+                    class="w-full h-full object-cover"
+                >
+            </div>
+
+            <div>
+                <span class="font-bold text-xl text-purple-400 block">RavixMC</span>
+                <span class="text-xs text-gray-500">Applications </span>
+            </div>
+        </div>
+
+        <nav class="space-y-3">
+            <a href="/dashboard" class="flex items-center gap-3 bg-purple-500/10 text-purple-400 px-4 py-3 rounded-xl font-bold border border-purple-500/20">
+                🏠 Home
+            </a>
+
+            <% if (showAdminDashboard) { %>
+                <a href="/admin" class="flex items-center gap-3 text-gray-300 hover:bg-purple-500/10 hover:text-purple-400 px-4 py-3 rounded-xl font-bold border border-transparent hover:border-purple-500/20 transition">
+                    📊 Dashboard
+                </a>
+            <% } %>
+        </nav>
+    </div>
+
+    <!-- User Profile -->
+    <div class="flex items-center justify-between pt-6 mt-6 border-t border-purple-900/40">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 overflow-hidden flex items-center justify-center text-purple-400 font-bold shrink-0">
+                <% if (user.avatar && user.id) { %>
+                    <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="d68efe93c865707cef973e8e-|49"></script><img
+                        src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.<%= user.avatar.startsWith('a_') ? 'gif' : 'png' %>?size=128"
+                        alt="Discord Avatar"
+                        class="w-full h-full object-cover"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <span class="hidden w-full h-full items-center justify-center">
+                        <%= user.username.charAt(0).toUpperCase() %>
+                    </span>
+                <% } else { %>
+                    <span><%= user.username.charAt(0).toUpperCase() %></span>
+                <% } %>
+            </div>
+
+            <div class="overflow-hidden">
+                <h4 class="text-sm font-bold truncate w-28"><%= user.username %></h4>
+                <span class="text-xs text-purple-400/80">Applicant</span>
+            </div>
+        </div>
+
+        <a href="/logout" title="Logout" class="text-red-400 hover:bg-red-500/10 p-2 rounded-lg transition">
+            🚪
+        </a>
+    </div>
+</aside>
+
+<!-- Main Content -->
+<main class="page-content flex-1 p-6 md:p-12 overflow-y-auto space-y-10">
+
+    <!-- Welcome Header -->
+    <header class="reveal delay-1 bg-gradient-to-r from-purple-900/30 via-purple-900/10 to-transparent p-8 rounded-3xl border border-purple-500/20">
+        <h1 class="text-3xl font-bold mb-3 text-purple-400">
+            Welcome to RavixMC Application
+        </h1>
+        <p class="text-gray-300 text-sm leading-relaxed max-w-2xl">
+            Choose the appropriate application and fill out the form carefully.
+        </p>
+    </header>
+
+    <!-- Alerts -->
+    <% if (typeof customError !== 'undefined' && customError === 'blacklisted') { %>
+        <div class="reveal bg-red-950/40 border border-red-500/40 p-6 rounded-3xl shadow-lg">
+            <span class="text-xs bg-red-500/20 text-red-400 px-3 py-1 rounded-full font-bold">Blacklisted</span>
+            <h2 class="text-xl font-bold text-red-400 mt-2">Sorry, you are blacklisted 🚫</h2>
+            <p class="text-gray-400 text-xs mt-1">Your account has been added to the blacklist and you cannot apply.</p>
+        </div>
+    <% } %>
+
+    <% if (customError === 'staff-cooldown' && staffCooldownData.active) { %>
+        <div class="reveal bg-amber-950/30 border border-amber-500/30 p-6 rounded-3xl">
+            <span class="text-xs bg-amber-500/10 text-amber-300 px-3 py-1 rounded-full font-bold">30-DAY COOLDOWN</span>
+            <h2 class="text-xl font-bold text-amber-300 mt-3">Staff Application Cooldown ⏳</h2>
+            <p class="text-gray-300 text-sm mt-2">
+                You can submit another Staff Application after your cooldown expires.
+            </p>
+            <p class="cooldown-time text-lg mt-3">
+                <%= formatRemaining(staffCooldownData.remainingMs).days %> days,
+                <%= formatRemaining(staffCooldownData.remainingMs).hours %> hours,
+                <%= formatRemaining(staffCooldownData.remainingMs).minutes %> minutes remaining
+            </p>
+        </div>
+    <% } %>
+
+    <% if (customError === 'media-cooldown' && mediaCooldownData.active) { %>
+        <div class="reveal bg-amber-950/30 border border-amber-500/30 p-6 rounded-3xl">
+            <span class="text-xs bg-amber-500/10 text-amber-300 px-3 py-1 rounded-full font-bold">30-DAY COOLDOWN</span>
+            <h2 class="text-xl font-bold text-amber-300 mt-3">Media Application Cooldown ⏳</h2>
+            <p class="text-gray-300 text-sm mt-2">
+                You can submit another Media Application after your cooldown expires.
+            </p>
+            <p class="cooldown-time text-lg mt-3">
+                <%= formatRemaining(mediaCooldownData.remainingMs).days %> days,
+                <%= formatRemaining(mediaCooldownData.remainingMs).hours %> hours,
+                <%= formatRemaining(mediaCooldownData.remainingMs).minutes %> minutes remaining
+            </p>
+        </div>
+    <% } %>
+
+    <% if (!appOpen && customError === 'closed') { %>
+        <div class="reveal bg-purple-950/40 border border-purple-500/40 p-6 rounded-3xl shadow-lg">
+            <span class="text-xs bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full font-bold">Closed</span>
+            <h2 class="text-xl font-bold text-purple-300 mt-2">Staff Applications Are Closed 🔒</h2>
+            <p class="text-gray-400 text-xs mt-1">Staff applications are temporarily closed. Please wait until they reopen.</p>
+        </div>
+    <% } %>
+
+    <% if (!mediaOpen && customError === 'media-closed') { %>
+        <div class="reveal bg-cyan-950/40 border border-cyan-500/40 p-6 rounded-3xl shadow-lg">
+            <span class="text-xs bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full font-bold">Closed</span>
+            <h2 class="text-xl font-bold text-cyan-300 mt-2">Media Applications Are Closed 🔒</h2>
+            <p class="text-gray-400 text-xs mt-1">Media applications are temporarily closed. Please check back later.</p>
+        </div>
+    <% } %>
+
+    <!-- Available Applications -->
+    <section id="available-applications" class="space-y-6">
+        <div class="reveal delay-3">
+            <h2 class="section-heading text-2xl font-bold text-white">Available Applications</h2>
+            <p class="text-gray-400 text-sm mt-3">Choose from the forms below to get started.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+            <!-- Staff Application -->
+            <article class="application-card reveal delay-3 p-8 flex flex-col justify-between gap-7">
+                <div class="space-y-5">
+                    <div class="application-icon">
+                        <svg width="23" height="23" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 2 4 4h-4zM8 12h8v1.7H8zm0 4h8v1.7H8z"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Staff Application</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Welcome to the RAVIXMC Staff Application! Please fill out the form honestly and carefully. Our Staff Management team will review your application and contact you via Discord if accepted. False information or AI-generated answers may result in rejection or a blacklist. Good luck, and thank you for your interest in joining the RAVIXMC Staff Team!
+                        </p>
+                    </div>
+                </div>
+
+                <% if (!appOpen) { %>
+                    <button disabled class="submit-button w-full text-center text-white py-4 rounded-lg font-bold">
+                        🔒 Applications Closed
+                    </button>
+                <% } else if (application && application.status === 'pending') { %>
+                    <button disabled class="w-full bg-gray-700/50 text-gray-400 py-4 rounded-lg font-bold cursor-not-allowed">
+                        Application Pending
+                    </button>
+                <% } else if (staffCooldownData.active) { %>
+                    <div class="cooldown-box">
+                        <p class="text-amber-300 font-bold text-sm">⏳ Application Cooldown Active</p>
+                        <p class="text-gray-400 text-xs mt-2">You can apply again in:</p>
+                        <p class="cooldown-time text-base mt-2">
+                            <%= formatRemaining(staffCooldownData.remainingMs).days %>d
+                            <%= formatRemaining(staffCooldownData.remainingMs).hours %>h
+                            <%= formatRemaining(staffCooldownData.remainingMs).minutes %>m
+                        </p>
+                    </div>
+                <% } else { %>
+                    <a href="/apply" class="submit-button w-full text-center text-white py-4 rounded-lg font-bold block">
+                        <span class="relative z-10">➜ &nbsp; <%= application ? 'Re-apply' : 'Submit Form' %></span>
+                    </a>
+                <% } %>
+            </article>
+
+            <!-- Media Application -->
+            <article class="application-card reveal delay-4 p-8 flex flex-col justify-between gap-7">
+                <div class="space-y-5">
+                    <div class="application-icon">
+                        <svg width="23" height="23" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 2 4 4h-4zM8 12h8v1.7H8zm0 4h8v1.7H8z"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Content Creator Application</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Apply as a content creator for RavixMC. Share your channel, platforms, audience and content portfolio. This application is reviewed separately from staff applications.
+                        </p>
+                    </div>
+                </div>
+
+                <% if (!mediaOpen) { %>
+                    <button disabled class="submit-button w-full text-center text-white py-4 rounded-lg font-bold">
+                        🔒 Media Applications Closed
+                    </button>
+                <% } else if (mediaApplication && mediaApplication.status === 'pending') { %>
+                    <button disabled class="w-full bg-gray-700/50 text-gray-400 py-4 rounded-lg font-bold cursor-not-allowed">
+                        Media Application Pending
+                    </button>
+                <% } else if (mediaCooldownData.active) { %>
+                    <div class="cooldown-box">
+                        <p class="text-amber-300 font-bold text-sm">⏳ Application Cooldown Active</p>
+                        <p class="text-gray-400 text-xs mt-2">You can apply again in:</p>
+                        <p class="cooldown-time text-base mt-2">
+                            <%= formatRemaining(mediaCooldownData.remainingMs).days %>d
+                            <%= formatRemaining(mediaCooldownData.remainingMs).hours %>h
+                            <%= formatRemaining(mediaCooldownData.remainingMs).minutes %>m
+                        </p>
+                    </div>
+                <% } else { %>
+                    <a href="/media-apply" class="submit-button w-full text-center text-white py-4 rounded-lg font-bold block">
+                        <span class="relative z-10">➜ &nbsp; <%= mediaApplication ? 'Re-apply' : 'Submit Form' %></span>
+                    </a>
+                <% } %>
+            </article>
+        </div>
+    </section>
+
+    <!-- Your Submissions -->
+    <section class="space-y-5">
+        <div class="reveal delay-2">
+            <h2 class="section-heading text-2xl font-bold text-white">Your Submissions</h2>
+            <p class="text-gray-400 text-sm mt-3">Track the status of your form submissions.</p>
+        </div>
+
+        <% if (submissions.length > 0) { %>
+            <div class="space-y-4">
+                <% submissions.forEach((submission, index) => { %>
+                    <div class="submission-row reveal flex items-center justify-between gap-4 p-5"
+                         style="animation-delay: <%= 0.25 + (index * 0.10) %>s;">
+
+                        <div class="flex items-center gap-4 min-w-0">
+                            <div class="submission-icon">
+                                <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 2 4 4h-4zM8 12h8v1.7H8zm0 4h8v1.7H8z"/>
+                                </svg>
+                            </div>
+
+                            <div class="min-w-0">
+                                <h3 class="font-bold text-white text-sm"><%= submission.type %></h3>
+                                <p class="text-gray-500 text-xs mt-2 flex items-center gap-2">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"/>
+                                    </svg>
+                                    <%= formatSubmissionDate(submission.date) %>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="submission-actions flex items-center gap-4 shrink-0">
+                            <span class="status-badge <%= statusClass(submission.status) %>">
+                                <%= statusLabel(submission.status) %>
+                            </span>
+
+                            <span class="view-button px-4 py-2 rounded-lg text-xs font-bold">
+                                <%= submission.status === 'pending' ? 'Under Review' : 'Reviewed' %>
+                            </span>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="reveal delay-3 bg-[#201f2d] border border-white/5 rounded-2xl p-8 text-center">
+                <div class="w-14 h-14 mx-auto rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
+                    <svg width="25" height="25" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 2 4 4h-4zM8 12h8v1.7H8zm0 4h8v1.7H8z"/>
+                    </svg>
+                </div>
+
+                <h3 class="font-bold text-white">No submissions yet</h3>
+                <p class="text-gray-400 text-sm mt-2">Your submitted applications will appear here.</p>
+            </div>
+        <% } %>
+    </section>
+
+    <footer class="text-center text-gray-600 text-xs pt-4 pb-2">
+        RavixMC &bull; Staff Applications
+    </footer>
+</main>
+
+<script type="d68efe93c865707cef973e8e-text/javascript">
+    // Refresh server-rendered application status and cooldown information.
+    setTimeout(() => {
+        window.location.reload();
+    }, 15000);
+</script>
+
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="d68efe93c865707cef973e8e-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a52db10c08cd383e',t:'MTc5MzM5NzYxMw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a52db10c08cd383e',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

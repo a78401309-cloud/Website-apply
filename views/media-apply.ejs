@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Application | RavixMC</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#09070f] text-white font-sans min-h-screen p-4 md:p-10 selection:bg-purple-500 selection:text-white">
+
+    <main class="max-w-6xl mx-auto space-y-8">
+
+        <!-- Header -->
+        <header class="space-y-4">
+            <a href="/dashboard"
+               class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition text-sm">
+                <span>←</span>
+                <span>Back to dashboard</span>
+            </a>
+
+            <div class="space-y-2">
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                    <span class="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">
+                        Media Application
+                    </span>
+                    <span>🎬</span>
+                </h1>
+
+                <p class="text-gray-400 text-sm md:text-base">
+                    Join RavixMC as a content creator and become part of our community.
+                </p>
+            </div>
+        </header>
+
+        <!-- Introduction -->
+        <section class="bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl shadow-xl shadow-purple-950/20">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 shrink-0 rounded-xl bg-purple-500/10 flex items-center justify-center text-2xl">
+                    🎥
+                </div>
+
+                <div class="space-y-2">
+                    <h2 class="text-lg font-bold text-white">Become a RavixMC Creator</h2>
+
+                    <p class="text-gray-400 text-sm leading-7">
+                        Tell us about your content, your audience, and your experience.
+                        Please provide accurate information and links to your recent work.
+                        Our team will review your application.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-300">
+                            🎬 Content Creation
+                        </span>
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-300">
+                            🤝 Community
+                        </span>
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-300">
+                            🚀 Collaboration
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Form -->
+        <form action="/submit-media-application"
+              method="POST"
+              id="applicationForm"
+              class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+            <!-- Questions -->
+            <div class="lg:col-span-2 space-y-5">
+
+                <!-- Question 1 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">01</span>
+                        <h2 class="text-white font-semibold">Creator / Channel Name <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">What name do you use for your content or channel?</p>
+
+                    <input id="creatorName" name="creatorName"
+                           maxlength="100" required
+                           placeholder="Enter your creator or channel name"
+                           class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition">
+                </section>
+
+                <!-- Question 2 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">02</span>
+                        <h2 class="text-white font-semibold">Discord Username <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">Enter your Discord username so our team can contact you.</p>
+
+                    <input id="discordUsername" name="discordUsername"
+                           maxlength="100" required
+                           placeholder="Enter your Discord username"
+                           class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition">
+                </section>
+
+                <!-- Question 3 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">03</span>
+                        <h2 class="text-white font-semibold">Age <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">How old are you?</p>
+
+                    <input id="age" name="age"
+                           type="number" min="1" max="120"
+                           inputmode="numeric" required
+                           placeholder="Enter your age"
+                           class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition">
+                </section>
+
+                <!-- Question 4 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">04</span>
+                        <h2 class="text-white font-semibold">Content Platforms <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">Which platforms do you use to publish your content?</p>
+
+                    <input id="platforms" name="platforms"
+                           maxlength="200" required
+                           placeholder="YouTube, TikTok, Twitch..."
+                           class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition">
+                </section>
+
+                <!-- Question 5 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">05</span>
+                        <h2 class="text-white font-semibold">Main Channel Link <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">Share a link to your main content channel.</p>
+
+                    <input id="channelLink" name="channelLink"
+                           type="url" maxlength="500" required
+                           placeholder="https://..."
+                           class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition">
+                </section>
+
+                <!-- Question 6 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">06</span>
+                        <h2 class="text-white font-semibold">Audience / Followers <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">How large is your current audience?</p>
+
+                    <input id="audience" name="audience"
+                           maxlength="100" required
+                           placeholder="e.g. 500 subscribers or 2,000 followers"
+                           class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition">
+                </section>
+
+                <!-- Question 7 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">07</span>
+                        <h2 class="text-white font-semibold">Type of Content <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">Describe the type of content you create.</p>
+
+                    <textarea id="contentType" name="contentType"
+                              maxlength="300" required
+                              placeholder="Describe your videos, streams, or other content..."
+                              rows="4"
+                              class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition resize-y"></textarea>
+                </section>
+
+                <!-- Question 8 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">08</span>
+                        <h2 class="text-white font-semibold">Recent Videos / Portfolio <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">Share links to your recent videos or examples of your work.</p>
+
+                    <textarea id="portfolio" name="portfolio"
+                              maxlength="1000" required
+                              placeholder="Paste links to your recent work..."
+                              rows="5"
+                              class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition resize-y"></textarea>
+                </section>
+
+                <!-- Question 9 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">09</span>
+                        <h2 class="text-white font-semibold">Posting Frequency <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">How often do you publish new content?</p>
+
+                    <input id="frequency" name="frequency"
+                           maxlength="300" required
+                           placeholder="e.g. 3 videos per week"
+                           class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition">
+                </section>
+
+                <!-- Question 10 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">10</span>
+                        <h2 class="text-white font-semibold">Why RavixMC? <span class="text-purple-400">*</span></h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">Why do you want to work with RavixMC?</p>
+
+                    <textarea id="whyRavix" name="whyRavix"
+                              maxlength="1000" required
+                              placeholder="Tell us why you want to join our creator team..."
+                              rows="5"
+                              class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition resize-y"></textarea>
+                </section>
+
+                <!-- Question 11 -->
+                <section class="question-card bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 shrink-0 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">11</span>
+                        <h2 class="text-white font-semibold">Additional Information</h2>
+                        <span class="text-xs text-gray-500">(Optional)</span>
+                    </div>
+
+                    <p class="text-gray-400 text-sm">Anything else you would like our team to know?</p>
+
+                    <textarea id="extra" name="extra"
+                              maxlength="1000"
+                              placeholder="Additional details..."
+                              rows="4"
+                              class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white placeholder-gray-600 focus:border-purple-500 outline-none text-sm transition resize-y"></textarea>
+                </section>
+
+                <!-- Submit -->
+                <section class="bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg">
+                    <div class="flex items-start gap-3">
+                        <span class="text-xl">📋</span>
+                        <p class="text-sm text-gray-400 leading-6">
+                            Please review your answers before submitting.
+                            Your application will be reviewed by the RavixMC team.
+                            Submitting more than once is not allowed while your application record exists.
+                        </p>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full py-4 px-6 rounded-xl font-bold text-white bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 hover:opacity-90 hover:shadow-lg hover:shadow-purple-900/30 transition">
+                        Submit Media Application
+                        <span class="ml-2">→</span>
+                    </button>
+
+                    <p class="text-xs text-gray-500 text-center">
+                        Fields marked with <span class="text-purple-400">*</span> are required.
+                    </p>
+                </section>
+            </div>
+
+            <!-- Progress Sidebar -->
+            <aside class="lg:sticky lg:top-8 space-y-5">
+
+                <section class="bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-5 shadow-xl shadow-purple-950/20">
+                    <div class="flex items-center justify-between gap-3">
+                        <h2 class="font-bold text-white">Application Progress</h2>
+                        <span class="text-xs text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 rounded-lg">
+                            LIVE
+                        </span>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center text-sm mb-3">
+                            <span class="text-gray-400">Required questions</span>
+                            <span id="progressText" class="text-purple-400 font-bold">0 / 10</span>
+                        </div>
+
+                        <div class="w-full h-2 bg-[#09070f] rounded-full overflow-hidden">
+                            <div id="progressBar"
+                                 class="h-full w-0 rounded-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 transition-all duration-300">
+                            </div>
+                        </div>
+
+                        <p id="progressMessage" class="text-xs text-gray-500 mt-3">
+                            Start filling in your answers.
+                        </p>
+                    </div>
+
+                    <div class="border-t border-purple-500/10 pt-5 space-y-3">
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">👤</span>
+                            <div>
+                                <p class="text-gray-300 font-medium">Your information</p>
+                                <p class="text-gray-500 text-xs">Basic details and platforms</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">🎬</span>
+                            <div>
+                                <p class="text-gray-300 font-medium">Your content</p>
+                                <p class="text-gray-500 text-xs">Channel and portfolio</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 text-sm">
+                            <span class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">🤝</span>
+                            <div>
+                                <p class="text-gray-300 font-medium">Your motivation</p>
+                                <p class="text-gray-500 text-xs">Why you want to join RavixMC</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-[#130f26] border border-purple-500/20 p-5 rounded-2xl space-y-3">
+                    <h3 class="font-bold text-white flex items-center gap-2">
+                        <span>💡</span> Application Tips
+                    </h3>
+
+                    <ul class="text-sm text-gray-400 space-y-3 leading-6">
+                        <li class="flex gap-2">
+                            <span class="text-purple-400">•</span>
+                            Use valid links to your channel and videos.
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="text-purple-400">•</span>
+                            Describe your content clearly.
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="text-purple-400">•</span>
+                            Make sure your answers are accurate.
+                        </li>
+                    </ul>
+                </section>
+
+                <a href="/dashboard"
+                   class="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-purple-500/20 text-gray-400 hover:text-white hover:border-purple-500/50 transition text-sm">
+                    ← Return to dashboard
+                </a>
+            </aside>
+        </form>
+    </main>
+
+    <script>
+        (function () {
+            const form = document.getElementById("applicationForm");
+            const requiredFields = Array.from(
+                form.querySelectorAll("[required]")
+            );
+
+            const progressText = document.getElementById("progressText");
+            const progressBar = document.getElementById("progressBar");
+            const progressMessage = document.getElementById("progressMessage");
+
+            function updateProgress() {
+                const completed = requiredFields.filter(function (field) {
+                    return field.value.trim() !== "" && field.checkValidity();
+                }).length;
+
+                const total = requiredFields.length;
+                const percentage = total ? (completed / total) * 100 : 0;
+
+                progressText.textContent = completed + " / " + total;
+                progressBar.style.width = percentage + "%";
+
+                if (completed === total) {
+                    progressMessage.textContent = "All required questions are complete!";
+                    progressMessage.className = "text-xs text-emerald-400 mt-3";
+                } else if (completed === 0) {
+                    progressMessage.textContent = "Start filling in your answers.";
+                    progressMessage.className = "text-xs text-gray-500 mt-3";
+                } else {
+                    progressMessage.textContent = "Keep going! You're making progress.";
+                    progressMessage.className = "text-xs text-purple-300 mt-3";
+                }
+            }
+
+            requiredFields.forEach(function (field) {
+                field.addEventListener("input", updateProgress);
+                field.addEventListener("change", updateProgress);
+            });
+
+            form.addEventListener("reset", updateProgress);
+
+            form.addEventListener("submit", function (event) {
+                const channelLink = document.getElementById("channelLink").value.trim();
+
+                if (!/^https?:\/\/.+/i.test(channelLink)) {
+                    event.preventDefault();
+                    document.getElementById("channelLink").setCustomValidity(
+                        "Please enter a valid link starting with http:// or https://"
+                    );
+                    document.getElementById("channelLink").reportValidity();
+                    document.getElementById("channelLink").focus();
+                    return;
+                }
+
+                document.getElementById("channelLink").setCustomValidity("");
+            });
+
+            document.getElementById("channelLink").addEventListener("input", function () {
+                this.setCustomValidity("");
+            });
+
+            updateProgress();
+        })();
+    </script>
+
+</body>
+</html>

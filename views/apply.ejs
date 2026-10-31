@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlDoc">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAVIXMC Staff Application</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#09070f] text-white font-sans min-h-screen p-6 md:p-12 selection:bg-purple-500 selection:text-white">
+
+    <div class="max-w-6xl mx-auto space-y-8">
+
+        <!-- Header -->
+        <div>
+            <a href="/dashboard" class="text-gray-400 hover:text-purple-400 text-sm flex items-center gap-2 mb-4 transition">
+                ← <span>Dashboard / Application Form</span>
+            </a>
+
+            <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent mb-3">
+                RavixMC Staff Application
+            </h1>
+        </div>
+
+        <!-- Introduction -->
+        <p class="text-gray-300 text-sm leading-relaxed max-w-4xl bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl shadow-xl shadow-purple-950/20">
+            Welcome to the RAVIXMC Staff Application! Answer the questions honestly and clearly. Our management team will review your application.
+        </p>
+
+        <!-- Requirements -->
+        <section class="max-w-4xl bg-[#130f26] border border-purple-500/30 p-6 rounded-2xl shadow-xl shadow-purple-950/20">
+            <h2 class="text-purple-400 font-bold text-lg mb-4">
+                📌 RavixMC Staff Requirements
+            </h2>
+
+            <ul class="text-gray-300 text-sm leading-8 list-disc pl-5">
+                <li>You must be at least 14 years old.</li>
+                <li>Be active in our Discord community.</li>
+                <li>Be able to play at least 8 hours per week.</li>
+                <li>Be available for a voice interview if needed.</li>
+                <li>Own a premium Minecraft Java Edition account.</li>
+                <li>Provide honest answers written in your own words.</li>
+                <li>Previous staff experience is a bonus, not a requirement.</li>
+            </ul>
+
+            <p class="text-yellow-300 text-sm mt-4">
+                ⚠️ Applications containing false information may be rejected.
+            </p>
+        </section>
+
+        <!-- Application Form -->
+        <form action="/submit-application" method="POST" id="applicationForm"
+              class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+            <!-- Questions -->
+            <div class="lg:col-span-2 space-y-6">
+
+                <%
+                const questions = [
+                    { id: 'q1', text: '1. What is your Minecraft username?' },
+                    { id: 'q2', text: '2. What is your Discord username?' },
+                    { id: 'q3', text: '3. How old are you?' },
+                    { id: 'q4', text: '4. What country are you from?' },
+                    { id: 'q5', text: '5. What is your time zone?' },
+                    { id: 'q6', text: '6. Do you have a premium Minecraft account or a cracked account?' },
+                    { id: 'q7', text: '7. Do you have a working microphone?' },
+                    { id: 'q8', text: '8. How many hours can you play daily?' },
+                    { id: 'q9', text: '9. Do you have any previous staff experience?' },
+                    { id: 'q10', text: '10. Why do you want to become a staff member?' },
+                    { id: 'q11', text: '11. Why should we choose you over other applicants?' },
+                    { id: 'q12', text: '12. What does being a staff member mean to you?' },
+                    { id: 'q13', text: '13. How would you handle an argument between two players?' },
+                    { id: 'q14', text: '14. What would you do if you caught a player using hacks?' },
+                    { id: 'q15', text: '15. What would you do if a staff member abused their permissions?' },
+                    { id: 'q16', text: '16. Have you ever been punished or banned from a Minecraft server?' },
+                    { id: 'q17', text: '17. Do you speak any languages besides English?' },
+                    { id: 'q18', text: '18. Is there anything else you would like us to know?' }
+                ];
+
+                questions.forEach((q, index) => { %>
+
+                    <div class="bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-lg hover:border-purple-500/40 transition">
+
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm">
+                                <%= index + 1 %>
+                            </span>
+
+                            <label for="<%= q.id %>" class="text-white font-medium">
+                                <%= q.text %>
+                            </label>
+
+                            <span class="text-purple-400">*</span>
+                        </div>
+
+                        <input
+                            type="text"
+                            id="<%= q.id %>"
+                            name="<%= q.id %>"
+                            required
+                            maxlength="1000"
+                            placeholder="Your answer"
+                            class="application-answer w-full bg-[#09070f] border border-purple-900/40 rounded-xl p-4 text-white focus:border-purple-500 outline-none text-sm transition"
+                        >
+
+                    </div>
+
+                <% }) %>
+
+                <button type="submit"
+                        id="submitBtn"
+                        class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white py-4 rounded-xl font-bold transition shadow-lg shadow-purple-600/30 text-lg">
+                    Submit Application ➤
+                </button>
+
+            </div>
+
+            <!-- Progress -->
+            <div class="lg:col-span-1 sticky top-6">
+                <div class="bg-[#130f26] border border-purple-500/20 p-6 rounded-2xl space-y-4 shadow-xl">
+
+                    <h3 class="text-purple-400 text-sm font-bold tracking-wider">
+                        PROGRESS
+                    </h3>
+
+                    <div class="text-xl font-bold text-white" id="progressText">
+                        0 of 18 answered
+                    </div>
+
+                    <div class="w-full bg-purple-950 h-2 rounded-full overflow-hidden">
+                        <div id="progressBar"
+                             class="bg-gradient-to-r from-purple-500 to-fuchsia-500 h-full w-0 transition-all duration-300">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- Application Progress Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("applicationForm");
+            const inputs = Array.from(
+                form.querySelectorAll(".application-answer")
+            );
+
+            const progressText = document.getElementById("progressText");
+            const progressBar = document.getElementById("progressBar");
+            const submitBtn = document.getElementById("submitBtn");
+
+            function updateProgress() {
+                const answered = inputs.filter(
+                    input => input.value.trim() !== ""
+                ).length;
+
+                const total = inputs.length;
+                const percentage = total
+                    ? (answered / total) * 100
+                    : 0;
+
+                progressText.textContent =
+                    `${answered} of ${total} answered`;
+
+                progressBar.style.width = `${percentage}%`;
+            }
+
+            inputs.forEach(input => {
+                input.addEventListener("input", updateProgress);
+            });
+
+            form.addEventListener("submit", event => {
+                const unanswered = inputs.filter(
+                    input => input.value.trim() === ""
+                );
+
+                if (unanswered.length > 0) {
+                    event.preventDefault();
+
+                    unanswered[0].focus();
+                    unanswered[0].scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                    updateProgress();
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Submitting...";
+                submitBtn.classList.add("opacity-70", "cursor-not-allowed");
+            });
+
+            updateProgress();
+        });
+    </script>
+
+</body>
+</html>

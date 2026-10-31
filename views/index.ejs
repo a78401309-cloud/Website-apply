@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0d0e12">
+    <title>Sign in to RavixMC</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: #f97316;
+            --accent-light: #fb923c;
+            --bg: #0d0e12;
+            --card: #14161f;
+        }
+
+        body {
+            background:
+                radial-gradient(
+                    ellipse at 50% 40%,
+                    rgba(249, 115, 22, 0.10),
+                    transparent 55%
+                ),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        /* Background ambient lights */
+        .ambient {
+            position: fixed;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.13;
+            pointer-events: none;
+            z-index: 0;
+            animation: ambientFloat 9s ease-in-out infinite alternate;
+        }
+
+        .ambient-one {
+            background: #f97316;
+            top: -150px;
+            right: -100px;
+        }
+
+        .ambient-two {
+            background: #ea580c;
+            bottom: -180px;
+            left: -100px;
+            animation-delay: 2s;
+        }
+
+        @keyframes ambientFloat {
+            from {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+            to {
+                transform: translate3d(25px, 35px, 0) scale(1.12);
+            }
+        }
+
+        /* Main card entrance */
+        .login-card {
+            position: relative;
+            animation: cardEnter 0.8s cubic-bezier(.16, 1, .3, 1) both;
+            isolation: isolate;
+        }
+
+        .login-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 8%;
+            right: 8%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(249, 115, 22, 0.8),
+                transparent
+            );
+            transform: scaleX(0);
+            transform-origin: center;
+            animation: topLine 0.9s ease 0.45s forwards;
+        }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(28px) scale(0.96);
+                filter: blur(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes topLine {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        /* Staggered content entrance */
+        .animate-item {
+            opacity: 0;
+            animation: itemEnter 0.65s cubic-bezier(.16, 1, .3, 1) forwards;
+        }
+
+        .item-1 { animation-delay: 0.18s; }
+        .item-2 { animation-delay: 0.30s; }
+        .item-3 { animation-delay: 0.42s; }
+        .item-4 { animation-delay: 0.54s; }
+        .item-5 { animation-delay: 0.66s; }
+
+        @keyframes itemEnter {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo */
+        .logo {
+            position: relative;
+            background: linear-gradient(145deg, #292524, #111111) !important;
+            border: 1px solid rgba(249, 115, 22, 0.4);
+            box-shadow:
+                0 0 22px rgba(249, 115, 22, 0.14),
+                inset 0 0 16px rgba(249, 115, 22, 0.07);
+            transition:
+                transform 0.35s cubic-bezier(.16, 1, .3, 1),
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-4px) scale(1.06) rotate(-3deg);
+            border-color: rgba(249, 115, 22, 0.8);
+            box-shadow:
+                0 0 35px rgba(249, 115, 22, 0.28),
+                inset 0 0 20px rgba(249, 115, 22, 0.12);
+        }
+
+        .logo-icon {
+            display: inline-block;
+            filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.4));
+            user-select: none;
+            transition: transform 0.35s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.12);
+        }
+
+        /* Heading */
+        .login-title {
+            transition: text-shadow 0.3s ease;
+        }
+
+        .login-title:hover {
+            text-shadow: 0 0 22px rgba(249, 115, 22, 0.25);
+        }
+
+        /* Discord button */
+        .login-button {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background-color 0.25s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 32px rgba(88, 101, 242, 0.35);
+        }
+
+        .login-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .login-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -110%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                110deg,
+                transparent,
+                rgba(255, 255, 255, 0.22),
+                transparent
+            );
+            transform: skewX(-20deg);
+            transition: left 0.65s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .login-button:hover::before {
+            left: 150%;
+        }
+
+        .login-button svg {
+            transition: transform 0.3s ease;
+        }
+
+        .login-button:hover svg {
+            transform: scale(1.12) rotate(-5deg);
+        }
+
+        .login-button:disabled {
+            opacity: 0.8;
+            cursor: wait;
+            transform: none;
+        }
+
+        /* Loading state */
+        #connecting {
+            display: none;
+        }
+
+        #connecting.active {
+            display: flex;
+            animation: itemEnter 0.35s ease both;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(249, 115, 22, 0.25);
+            border-top-color: var(--accent-light);
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Footer */
+        .footer-text {
+            transition: color 0.25s ease;
+        }
+
+        .footer-text:hover {
+            color: rgba(249, 115, 22, 0.8);
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 28px 22px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-white font-sans min-h-screen flex items-center justify-center p-4">
+
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="login-card bg-[#14161f] p-8 sm:p-10 rounded-3xl shadow-2xl max-w-md w-full text-center border border-orange-500/20 relative overflow-hidden z-10">
+
+        <div class="absolute top-0 right-0 w-40 h-40 bg-orange-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-40 h-40 bg-orange-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="logo animate-item item-1 w-20 h-20 rounded-2xl mx-auto flex items-center justify-center text-3xl mb-6 relative">
+            <span class="logo-icon" aria-hidden="true">🔥</span>
+        </div>
+
+        <h1 class="login-title animate-item item-2 text-3xl font-bold mb-3 text-orange-400">
+            Sign in to RavixMC
+        </h1>
+
+        <p class="animate-item item-3 text-gray-400 text-sm mb-8 leading-relaxed">
+            You need a Discord account to apply. We only read your username and avatar.
+        </p>
+
+        <a
+            id="loginButton"
+            href="/login"
+            class="login-button animate-item item-4 w-full flex items-center justify-center gap-3 bg-[#5865F2] hover:bg-[#4752C4] text-white py-3.5 px-6 rounded-xl font-bold shadow-lg shadow-indigo-500/20"
+            aria-label="Login with Discord"
+        >
+            <svg
+                width="23"
+                height="23"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+            >
+                <path d="M19.73 5.33A19.8 19.8 0 0 0 14.85 3.8l-.6 1.23a18.3 18.3 0 0 0-4.5 0L9.15 3.8a19.7 19.7 0 0 0-4.88 1.53C1.18 9.88.35 14.33.77 18.72a19.9 19.9 0 0 0 6 3.04l1.3-2.1a12.9 12.9 0 0 1-2.04-.98l.5-.39c3.94 1.82 8.2 1.82 12.1 0l.52.39c-.66.39-1.35.72-2.05.98l1.3 2.1a19.8 19.8 0 0 0 6-3.04c.5-5.09-.85-9.5-4.67-13.39ZM8.55 15.3c-1.18 0-2.15-1.08-2.15-2.41 0-1.32.95-2.4 2.15-2.4 1.2 0 2.17 1.08 2.15 2.4 0 1.33-.95 2.41-2.15 2.41Zm6.9 0c-1.18 0-2.15-1.08-2.15-2.41 0-1.32.95-2.4 2.15-2.4 1.2 0 2.17 1.08 2.15 2.4 0 1.33-.95 2.41-2.15 2.41Z"/>
+            </svg>
+
+            <span id="buttonText">Login with Discord</span>
+        </a>
+
+        <div
+            id="connecting"
+            class="items-center justify-center gap-3 mt-5 text-sm text-gray-400"
+            role="status"
+            aria-live="polite"
+        >
+            <span class="spinner"></span>
+            <span>Connecting to Discord...</span>
+        </div>
+
+        <p class="footer-text animate-item item-5 text-gray-600 text-xs mt-7">
+            RavixMC &bull; Staff Applications
+        </p>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginButton = document.getElementById("loginButton");
+            const buttonText = document.getElementById("buttonText");
+            const connecting = document.getElementById("connecting");
+
+            if (!loginButton || !buttonText || !connecting) {
+                return;
+            }
+
+            loginButton.addEventListener("click", function (event) {
+                if (loginButton.dataset.loading === "true") {
+                    event.preventDefault();
+                    return;
+                }
+
+                loginButton.dataset.loading = "true";
+                loginButton.setAttribute("aria-busy", "true");
+                buttonText.textContent = "Connecting...";
+                connecting.classList.add("active");
+            });
+        });
+    </script>
+
+</body>
+</html>

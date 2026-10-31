@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RavixMC · Application Management</title>
+    <link rel="icon" href="https://upload.mthaiand123.workers.dev/EXij8z7Zzm.webp">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            background:
+                radial-gradient(ellipse at top left, rgba(124, 58, 237, .12), transparent 40%),
+                #09070f;
+        }
+
+        .glass {
+            background: rgba(19, 15, 38, .88);
+            backdrop-filter: blur(14px);
+        }
+
+        .application-card {
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .application-card:hover {
+            border-color: rgba(168, 85, 247, .5);
+            box-shadow: 0 12px 35px rgba(124, 58, 237, .08);
+        }
+
+        .hidden-card {
+            display: none !important;
+        }
+
+        .view-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            background: rgba(124, 58, 237, .15);
+            border: 1px solid rgba(168, 85, 247, .3);
+            color: #c4b5fd;
+            transition: .2s ease;
+            text-decoration: none;
+        }
+
+        .view-button:hover {
+            background: rgba(124, 58, 237, .3);
+            border-color: rgba(168, 85, 247, .65);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .avatar {
+            background: linear-gradient(135deg, #7c3aed, #4338ca);
+            box-shadow: 0 5px 18px rgba(124, 58, 237, .2);
+        }
+
+        .media-avatar {
+            background: linear-gradient(135deg, #0891b2, #2563eb);
+            box-shadow: 0 5px 18px rgba(8, 145, 178, .2);
+        }
+
+        @media (max-width: 640px) {
+            .view-button {
+                padding: 9px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-white font-sans">
+
+    <header class="sticky top-0 z-20 border-b border-purple-500/20 glass">
+        <div class="max-w-7xl mx-auto px-5 py-4 flex flex-wrap items-center justify-between gap-4">
+
+            <a href="/dashboard" class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-2xl shadow-lg shadow-purple-500/20">
+                    👑
+                </div>
+
+                <div>
+                    <h1 class="text-xl font-extrabold text-purple-300">RavixMC</h1>
+                    <p class="text-xs text-gray-500">Application Management</p>
+                </div>
+            </a>
+
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline text-sm text-gray-400">
+                    Signed in as
+                    <strong class="text-purple-300"><%= user.username %></strong>
+                </span>
+
+                <a href="/dashboard"
+                   class="px-4 py-2 rounded-xl border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 transition text-sm font-bold">
+                    User Dashboard
+                </a>
+
+                <a href="/logout"
+                   class="px-4 py-2 rounded-xl border border-red-500/20 text-red-300 hover:bg-red-500/10 transition text-sm font-bold">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-5 py-8 md:py-12 space-y-8">
+
+        <!-- PAGE HEADER -->
+
+        <section class="rounded-3xl border border-purple-500/20 p-7 md:p-10 bg-gradient-to-br from-purple-900/30 via-[#130f26] to-[#09070f]">
+            <div class="flex flex-wrap justify-between items-start gap-5">
+
+                <div>
+                    <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-bold mb-4">
+                        <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                        STAFF CONTROL PANEL
+                    </span>
+
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-3">
+                        Application Management
+                    </h2>
+
+                    <p class="text-gray-400 text-sm leading-7 max-w-2xl">
+                        Review staff applications, inspect applicant answers, and record your decision.
+                        Only authorized staff members should have access to this page.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    onclick="location.reload()"
+                    class="px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 transition font-bold text-sm shadow-lg shadow-purple-600/20">
+                    ↻ Refresh
+                </button>
+
+            </div>
+        </section>
+
+        <!-- STAFF STATISTICS -->
+
+        <%
+            const safeApplications = Array.isArray(applications) ? applications : [];
+            const pendingCount = safeApplications.filter(a => a.status === 'pending').length;
+            const acceptedCount = safeApplications.filter(a => a.status === 'accepted').length;
+            const rejectedCount = safeApplications.filter(a => a.status === 'rejected').length;
+        %>
+
+        <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+
+            <div class="glass rounded-2xl border border-purple-500/20 p-5">
+                <p class="text-gray-400 text-sm">Total Applications</p>
+                <p class="text-3xl font-extrabold mt-3"><%= safeApplications.length %></p>
+                <p class="text-xs text-purple-300 mt-2">All recorded applications</p>
+            </div>
+
+            <div class="glass rounded-2xl border border-amber-500/20 p-5">
+                <p class="text-gray-400 text-sm">Pending Review</p>
+                <p class="text-3xl font-extrabold text-amber-300 mt-3"><%= pendingCount %></p>
+                <p class="text-xs text-amber-300/70 mt-2">Waiting for a decision</p>
+            </div>
+
+            <div class="glass rounded-2xl border border-emerald-500/20 p-5">
+                <p class="text-gray-400 text-sm">Accepted</p>
+                <p class="text-3xl font-extrabold text-emerald-300 mt-3"><%= acceptedCount %></p>
+                <p class="text-xs text-emerald-300/70 mt-2">Accepted applications</p>
+            </div>
+
+            <div class="glass rounded-2xl border border-red-500/20 p-5">
+                <p class="text-gray-400 text-sm">Rejected</p>
+                <p class="text-3xl font-extrabold text-red-300 mt-3"><%= rejectedCount %></p>
+                <p class="text-xs text-red-300/70 mt-2">Rejected applications</p>
+            </div>
+
+        </section>
+
+        <!-- STAFF SEARCH AND FILTER -->
+
+        <section class="glass rounded-2xl border border-purple-500/20 p-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                <div class="md:col-span-2">
+                    <label for="searchInput" class="block text-sm text-gray-400 mb-2">
+                        Search applications
+                    </label>
+
+                    <input
+                        id="searchInput"
+                        type="search"
+                        placeholder="Search by Discord ID, answer, or status..."
+                        class="w-full bg-[#09070f] border border-purple-500/20 rounded-xl px-4 py-3 outline-none focus:border-purple-400 transition text-sm">
+                </div>
+
+                <div>
+                    <label for="statusFilter" class="block text-sm text-gray-400 mb-2">
+                        Filter by status
+                    </label>
+
+                    <select
+                        id="statusFilter"
+                        class="w-full bg-[#09070f] border border-purple-500/20 rounded-xl px-4 py-3 outline-none focus:border-purple-400 transition text-sm">
+                        <option value="all">All applications</option>
+                        <option value="pending">Pending</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- STAFF APPLICATIONS -->
+
+        <section class="space-y-5">
+
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="text-xl font-bold">Staff Applications</h3>
+
+                <span id="resultsCount" class="text-xs text-gray-400">
+                    <%= safeApplications.length %> applications
+                </span>
+            </div>
+
+            <% if (safeApplications.length === 0) { %>
+
+                <div class="glass border border-purple-500/20 rounded-3xl p-12 text-center">
+                    <div class="text-5xl mb-4">📭</div>
+
+                    <h4 class="text-xl font-bold mb-2">
+                        No applications yet
+                    </h4>
+
+                    <p class="text-sm text-gray-400">
+                        New staff applications will appear here.
+                    </p>
+                </div>
+
+            <% } %>
+
+            <div id="applicationsList" class="space-y-3">
+
+                <% safeApplications.forEach((application, index) => {
+                    const status = ['pending', 'accepted', 'rejected'].includes(application.status)
+                        ? application.status
+                        : 'unknown';
+
+                    const statusClass = status === 'pending'
+                        ? 'bg-amber-500/10 text-amber-300 border-amber-500/20'
+                        : status === 'accepted'
+                            ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
+                            : status === 'rejected'
+                                ? 'bg-red-500/10 text-red-300 border-red-500/20'
+                                : 'bg-gray-500/10 text-gray-300 border-gray-500/20';
+
+                    const answers = application.answers && typeof application.answers === 'object'
+                        ? application.answers
+                        : {};
+
+                    const applicantName = application.username || 'Unknown applicant';
+
+                    const initials = String(applicantName)
+                        .trim()
+                        .slice(0, 2)
+                        .toUpperCase();
+
+                    const searchableText = [
+                        application.userId,
+                        application.username,
+                        application.status,
+                        application.date,
+                        applicantName,
+                        ...Object.values(answers)
+                    ].join(' ').toLowerCase();
+                %>
+
+                    <article
+                        class="application-card application-item glass rounded-2xl border border-purple-500/20 overflow-hidden"
+                        data-status="<%= status %>"
+                        data-search="<%= searchableText %>">
+
+                        <div class="p-4 md:p-5 flex flex-wrap items-center justify-between gap-4">
+
+                            <div class="flex items-center gap-4 min-w-0">
+
+                                <div class="avatar w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center font-extrabold text-white text-sm">
+                                    <%= initials %>
+                                </div>
+
+                                <div class="min-w-0">
+
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <h4 class="font-bold text-base md:text-lg break-all">
+                                            <%= applicantName %>
+                                        </h4>
+
+                                        <span class="text-[10px] uppercase tracking-wider text-purple-300 bg-purple-500/10 border border-purple-500/20 rounded-md px-2 py-1">
+                                            Staff Application
+                                        </span>
+                                    </div>
+
+                                    <p class="text-xs text-gray-500 mt-1 break-all">
+                                        Discord ID:
+                                        <span class="text-gray-400"><%= application.userId %></span>
+                                    </p>
+
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        Submitted: <%= application.date || 'Unknown date' %>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex items-center gap-3 ml-auto">
+
+                                <span class="shrink-0 px-3 py-1.5 rounded-full border text-[11px] font-bold <%= statusClass %>">
+                                    <%= status.toUpperCase() %>
+                                </span>
+
+                                <a
+                                    href="/admin/applications/<%= encodeURIComponent(application.userId) %>"
+                                    class="view-button px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap">
+                                    View Application
+                                    <span>↗</span>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                <% }) %>
+
+            </div>
+
+            <div id="noResults" class="hidden glass border border-purple-500/20 rounded-2xl p-8 text-center">
+                <p class="text-gray-300 font-bold">No matching applications</p>
+
+                <p class="text-sm text-gray-500 mt-2">
+                    Try another search term or status filter.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- MEDIA APPLICATIONS -->
+
+        <%
+            const safeMediaApplications = Array.isArray(mediaApplications) ? mediaApplications : [];
+
+            const mediaPendingCount = safeMediaApplications.filter(a => a.status === 'pending').length;
+            const mediaAcceptedCount = safeMediaApplications.filter(a => a.status === 'accepted').length;
+            const mediaRejectedCount = safeMediaApplications.filter(a => a.status === 'rejected').length;
+        %>
+
+        <section class="space-y-5 border-t border-cyan-500/20 pt-8">
+
+            <div class="rounded-3xl border border-cyan-500/20 p-7 bg-gradient-to-br from-cyan-900/20 via-[#130f26] to-[#09070f]">
+
+                <span class="inline-flex rounded-full px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-bold mb-3">
+                    CREATOR CONTROL PANEL
+                </span>
+
+                <h3 class="text-2xl font-extrabold">
+                    Media Applications
+                </h3>
+
+                <p class="text-sm text-gray-400 mt-2">
+                    This section contains creator applications only. Staff applications above are stored separately.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
+
+                    <div class="bg-black/20 border border-cyan-500/10 rounded-xl p-4">
+                        <p class="text-xs text-gray-400">Total Media</p>
+                        <p class="text-2xl font-bold mt-1"><%= safeMediaApplications.length %></p>
+                    </div>
+
+                    <div class="bg-black/20 border border-amber-500/10 rounded-xl p-4">
+                        <p class="text-xs text-gray-400">Pending</p>
+                        <p class="text-2xl font-bold text-amber-300 mt-1"><%= mediaPendingCount %></p>
+                    </div>
+
+                    <div class="bg-black/20 border border-emerald-500/10 rounded-xl p-4">
+                        <p class="text-xs text-gray-400">Accepted / Rejected</p>
+
+                        <p class="text-2xl font-bold mt-1">
+                            <span class="text-emerald-300"><%= mediaAcceptedCount %></span>
+                            /
+                            <span class="text-red-300"><%= mediaRejectedCount %></span>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <% if (safeMediaApplications.length === 0) { %>
+
+                <div class="glass border border-cyan-500/20 rounded-3xl p-10 text-center">
+                    <div class="text-4xl mb-3">🎬</div>
+
+                    <h4 class="text-lg font-bold">
+                        No media applications yet
+                    </h4>
+
+                    <p class="text-sm text-gray-400 mt-2">
+                        Creator applications will appear here after submission.
+                    </p>
+                </div>
+
+            <% } %>
+
+            <div class="space-y-3">
+
+                <% safeMediaApplications.forEach((mediaApp, index) => {
+                    const mediaStatus = ['pending', 'accepted', 'rejected'].includes(mediaApp.status)
+                        ? mediaApp.status
+                        : 'unknown';
+
+                    const mediaStatusClass = mediaStatus === 'pending'
+                        ? 'bg-amber-500/10 text-amber-300 border-amber-500/20'
+                        : mediaStatus === 'accepted'
+                            ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
+                            : mediaStatus === 'rejected'
+                                ? 'bg-red-500/10 text-red-300 border-red-500/20'
+                                : 'bg-gray-500/10 text-gray-300 border-gray-500/20';
+
+                    const mediaAnswers = mediaApp.answers && typeof mediaApp.answers === 'object'
+                        ? mediaApp.answers
+                        : {};
+
+                    const mediaName = mediaApp.username || mediaAnswers.creatorName || 'Unknown creator';
+                    const mediaInitials = String(mediaName).trim().slice(0, 2).toUpperCase();
+                %>
+
+                    <article class="application-card media-application-card glass border border-cyan-500/20 rounded-2xl overflow-hidden">
+
+                        <div class="p-4 md:p-5 flex flex-wrap items-center justify-between gap-4">
+
+                            <div class="flex items-center gap-4 min-w-0">
+
+                                <div class="media-avatar w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center font-extrabold text-white text-sm">
+                                    <%= mediaInitials %>
+                                </div>
+
+                                <div class="min-w-0">
+
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <h4 class="text-base md:text-lg font-bold break-all">
+                                            <%= mediaName %>
+                                        </h4>
+
+                                        <span class="text-[10px] uppercase tracking-wider text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 rounded-md px-2 py-1">
+                                            Media Application
+                                        </span>
+                                    </div>
+
+                                    <p class="text-xs text-gray-500 mt-1 break-all">
+                                        Discord ID: <%= mediaApp.userId %>
+                                    </p>
+
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        Submitted: <%= mediaApp.date || 'Unknown date' %>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex items-center gap-3 ml-auto">
+
+                                <span class="px-3 py-1.5 rounded-full border text-[11px] font-bold <%= mediaStatusClass %>">
+                                    <%= mediaStatus.toUpperCase() %>
+                                </span>
+
+                                <a
+                                    href="/admin/media-applications/<%= encodeURIComponent(mediaApp.userId) %>"
+                                    class="view-button px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap">
+                                    View Application
+                                    <span>↗</span>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                <% }) %>
+
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer class="text-center text-xs text-gray-600 pt-5 pb-8">
+            RavixMC Application Portal · Authorized staff only
+        </footer>
+
+    </main>
+
+    <!-- SEARCH AND FILTER SCRIPT -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const searchInput = document.getElementById("searchInput");
+            const statusFilter = document.getElementById("statusFilter");
+
+            const applicationItems = Array.from(
+                document.querySelectorAll(".application-item")
+            );
+
+            const resultsCount = document.getElementById("resultsCount");
+            const noResults = document.getElementById("noResults");
+
+            function filterApplications() {
+                const search = searchInput.value.trim().toLowerCase();
+                const status = statusFilter.value;
+
+                let visible = 0;
+
+                applicationItems.forEach((item) => {
+                    const itemSearch = (
+                        item.dataset.search || ""
+                    ).toLowerCase();
+
+                    const itemStatus = item.dataset.status || "";
+
+                    const matchesSearch = itemSearch.includes(search);
+
+                    const matchesStatus =
+                        status === "all" || itemStatus === status;
+
+                    const show = matchesSearch && matchesStatus;
+
+                    item.classList.toggle("hidden-card", !show);
+
+                    if (show) visible++;
+                });
+
+                resultsCount.textContent =
+                    `${visible} application${visible === 1 ? "" : "s"}`;
+
+                noResults.classList.toggle("hidden", visible !== 0);
+            }
+
+            searchInput.addEventListener("input", filterApplications);
+            statusFilter.addEventListener("change", filterApplications);
+
+            filterApplications();
+        });
+    </script>
+
+</body>
+</html>
